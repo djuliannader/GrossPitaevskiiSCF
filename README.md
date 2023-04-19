@@ -8,3 +8,8 @@ git clone https://github.com/djuliannader/GrossPitaevskiiSCF.git
 run as:
 
 julia main.jl
+
+or to see the wave function:
+
+julia 
+>include("main.jl")
