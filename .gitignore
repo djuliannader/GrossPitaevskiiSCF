@@ -2,5 +2,6 @@
 *.dat~
 *.txt~
 *.gitignore~
+*.#
 #README.md#
 #README.md
