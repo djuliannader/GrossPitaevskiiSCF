@@ -2,6 +2,7 @@
 *.dat~
 *.txt~
 *.gitignore~
-*.#
+#main.jl#
+.#main.jl
 #README.md#
 #README.md
