@@ -1,5 +1,6 @@
 push!(LOAD_PATH, pwd())
 import body
+import norm
 using Plots
 
 
@@ -19,6 +20,8 @@ open("input.dat") do f
  K5=readline(f)
  K6=readline(f)
  beta = parse(Float16, K6)
+ K7=readline(f)
+ K8=readline(f)
 #------------------------------------
 
 # printing information 
@@ -36,11 +39,16 @@ end
 println("lambda = ",r[1])
 iter= trunc(Int,r[2])
 println("Convergence reached after ",iter, " iterations")
-println("u:",r[3])
+wf=norm.normalizing(r[3],2L/N)
+if K8=="True"
+ println("u:",wf)
+end
 x=[-L+(2L/N)*i for  i in 1:(N-1)]
-plot(x,r[3],title="wave function")
+plot(x,wf,title="wave function")
 xlabel!("x")
 ylabel!("y(x)")
+#if K8=="True"  
+#   end
 end
 
 
