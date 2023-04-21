@@ -1,4 +1,4 @@
-push!(LOAD_PATH, "/home/daniel/Documents/Bosons/GrossPitaevskii/Project")
+push!(LOAD_PATH, pwd())
 import body
 
 
