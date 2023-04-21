@@ -1,8 +1,8 @@
 Space from -L to L
 5
 Number N of intervals (h=2L/N)
-100
+2000
 Beta (Non linear coefricient)
-0
+1
 Printing wavefunction (True/False)
 False

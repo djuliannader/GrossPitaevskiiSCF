@@ -4,7 +4,7 @@ import norm
 using Plots
 
 
-println("\r Gross-Pitaeskii 1D equation solver")
+println("\r Gross-Pitaeskii 1D ")
 println("\r Selfconsistent method")
 
 
@@ -47,8 +47,7 @@ x=[-L+(2L/N)*i for  i in 1:(N-1)]
 plot(x,wf,title="wave function")
 xlabel!("x")
 ylabel!("y(x)")
-#if K8=="True"  
-#   end
+
 end
 
 

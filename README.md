@@ -1,5 +1,5 @@
 # GrossPitaevskiiSCF
-study of the discretization of the Gross-Pitaevskii eigenvalue problem in Julia
+Numerical study of the discretization of the Gross-Pitaevskii eigenvalue problem in Julia
 
 clone as:
 
