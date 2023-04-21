@@ -9,7 +9,7 @@ run as:
 
 julia main.jl
 
-or to see the wave function:
+or to see the plot of the wave function:
 
 julia 
->include("main.jl")
+> include("main.jl")
