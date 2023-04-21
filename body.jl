@@ -26,12 +26,11 @@ function selfconsistent(l,n,beta)
 	  A3=Array(Diagonal(da3))
 	  H=(-1/2)*A1+A2+beta*A3
 	  HV=eigvecs(H)
-	  U=[HV[i] for i in 1:(n-1)]
+	  U=[HV[i,1] for i in 1:(n-1)]
 	  lold=lnew
 	  lnew=eigvals(H)[1]
 	 end
-	 #r=potential.V(n)
-	 return [lnew,it]
+	 return [lnew,it,[HV[i,1] for i in 1:(n-1)]]
 	 end 
 
 

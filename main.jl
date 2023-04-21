@@ -1,5 +1,6 @@
 push!(LOAD_PATH, pwd())
 import body
+using Plots
 
 
 println("\r Gross-Pitaeskii 1D equation solver")
@@ -35,6 +36,11 @@ end
 println("lambda = ",r[1])
 iter= trunc(Int,r[2])
 println("Convergence reached after ",iter, " iterations")
+println("u:",r[3])
+x=[-L+(2L/N)*i for  i in 1:(N-1)]
+plot(x,r[3],title="wave function")
+xlabel!("x")
+ylabel!("y(x)")
 end
 
 
