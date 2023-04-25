@@ -29,6 +29,7 @@ println("------------------------------------------------")
 println("Space from -L to L with L=",L)
 println("partitioning the space in N=",N, " subintervals")
 println("Nonlinear term (beta)=",beta)
+println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
@@ -38,10 +39,16 @@ end
 # printing results
 println("lambda = ",r[1])
 iter= trunc(Int,r[2])
+if r[4]==1
 println("Convergence reached after ",iter, " iterations")
+end
 wf=norm.normalizing(r[3],2L/N)
 if K8=="True"
  println("u:",wf)
+end
+if r[4]==2
+ println("Chemical potential converged after ",iter," iterations")
+ println("--->Failed to converge wave function")
 end
 x=[-L+(2L/N)*i for  i in 1:(N-1)]
 plot(x,wf,title="wave function")
