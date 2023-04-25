@@ -14,7 +14,7 @@ function selfconsistent(l,n,b)
 	 A2=Array(Diagonal(da2))
 	 Utemp=[]
 	 Utemp=[1/((n-1)^(1/2)) for i in 1:(n-1)]
-	 U=[0 for i in 1:(n-1)]
+	 U=norm.normalizing(Utemp,2*l/n)
 	 s=[0 for i in 1:(n-1)]
 	 U=norm.normalizing(Utemp,2l/n)
 	 A3=[]
