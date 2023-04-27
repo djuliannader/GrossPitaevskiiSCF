@@ -3,6 +3,10 @@ Space from -L to L
 Number N of intervals (h=2L/N)
 500
 Beta (Non linear coefricient)
-1.0
+3.0
 Printing wavefunction (True/False)
 False
+Epsilon for convergence on the chemical potential
+1e-12
+Epsilon for convergence on the wave function
+1e-3

@@ -5,7 +5,7 @@ export selfconsistent
 import potential
 import norm
 
-function selfconsistent(l,n,b)
+function selfconsistent(l,n,b,epsilon1,epsilon2)
 	 h=2*l/n
 	 d=[-2/(h*h) for i in 1:(n-1)]
 	 du=[1/(h*h) for i in 1:(n-2)]
@@ -25,9 +25,8 @@ function selfconsistent(l,n,b)
 	 lold=10
 	 lnew=2
 	 it=0
-	 while (abs(lold-lnew)>1e-12)
+	 while (abs(lold-lnew)>epsilon1)
 	  it=it+1
-	  #println("u:",U)
 	  da3=[U[i]*U[i] for i in 1:(n-1)]
 	  A3=Array(Diagonal(da3))
 	  H=(-1/2)*A1+A2+b*A3
@@ -42,7 +41,7 @@ function selfconsistent(l,n,b)
 	  #println("it ",it," lambda:",lnew," lold:",lold," U:", U[trunc(Int,(n-1)/2)]," Uold:",Uold[trunc(Int,(n-1)/2)])
 	  s=[abs(U[i]-Uold[i]) for i in 1:(n-1)]
 	 end
-	 if (sum(s))<1e-3
+	 if (sum(s))<epsilon2
 	   return [lnew,it,U,1]
 	 end
 	 if (sum(s))>1e-3
