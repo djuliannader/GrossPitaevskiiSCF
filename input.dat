@@ -7,6 +7,6 @@ Beta (Non linear coefricient)
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue
-1e-6
+1e-12
 Epsilon for convergence on the wave function
 1e-3

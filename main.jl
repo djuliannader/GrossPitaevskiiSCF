@@ -54,7 +54,8 @@ if r[4]==1
  println("Convergence reached after ",iter," iterations")
 end
 if r[4]==2
- println("--->Failed to converge wave function")
+ iter= trunc(Int,r[2])
+ println("--->Failed to converge wave function after ",iter," iterations")
 end
 plot(x,wf,title="wave function")
  xlabel!("x")
