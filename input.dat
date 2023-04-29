@@ -3,7 +3,7 @@ Space from -L to L
 Number N of intervals (h=2L/N)
 200
 Beta (Non linear coefricient)
-3.0
+1.0
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue
