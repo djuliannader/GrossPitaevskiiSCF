@@ -43,24 +43,22 @@ r=body.selfconsistent(L,N,beta,ep1,ep2)
 end
 
 # printing results
-println("lambda = ",r[1])
-iter= trunc(Int,r[2])
-if r[4]==1
-println("Convergence reached after ",iter, " iterations")
-end
 wf=norm.normalizing(r[3],2L/N)
-if K8=="True"
- println("u:",wf)
+x=[-L+(2L/N)*i for  i in 1:(N-1)]
+if r[4]==1
+ println("lambda = ",r[1])
+ iter= trunc(Int,r[2])
+ if K8=="True"
+   println("u:",wf)
+ end
+ println("Convergence reached after ",iter," iterations")
 end
 if r[4]==2
- println("Chemical potential converged after ",iter," iterations")
  println("--->Failed to converge wave function")
 end
-x=[-L+(2L/N)*i for  i in 1:(N-1)]
 plot(x,wf,title="wave function")
-xlabel!("x")
-ylabel!("y(x)")
-
+ xlabel!("x")
+ ylabel!("y(x)")
 end
 
 

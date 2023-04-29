@@ -25,7 +25,8 @@ function selfconsistent(l,n,b,epsilon1,epsilon2)
 	 lold=10
 	 lnew=2
 	 it=0
-	 while (abs(lold-lnew)>epsilon1)
+	 s=[1 for i in 1:(n-1)]
+	 while (abs(lold-lnew)>epsilon1) && (it<1000)
 	  it=it+1
 	  da3=[U[i]*U[i] for i in 1:(n-1)]
 	  A3=Array(Diagonal(da3))
@@ -41,10 +42,10 @@ function selfconsistent(l,n,b,epsilon1,epsilon2)
 	  #println("it ",it," lambda:",lnew," lold:",lold," U:", U[trunc(Int,(n-1)/2)]," Uold:",Uold[trunc(Int,(n-1)/2)])
 	  s=[abs(U[i]-Uold[i]) for i in 1:(n-1)]
 	 end
-	 if (sum(s))<epsilon2
+	 if sum(s)<epsilon2
 	   return [lnew,it,U,1]
 	 end
-	 if (sum(s))>1e-3
+	 if sum(s)>epsilon2
 	 return [lnew,it,U,2]
 	 end
 	 end 
