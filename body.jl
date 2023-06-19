@@ -5,7 +5,7 @@ export selfconsistent
 import potential
 import norm
 
-function selfconsistent(l,n,b,epsilon1,epsilon2)
+function selfconsistent(l,n,b,k,epsilon1,epsilon2)
 	 h=2*l/n
 	 d=[-2/(h*h) for i in 1:(n-1)]
 	 du=[1/(h*h) for i in 1:(n-2)]
@@ -39,7 +39,7 @@ function selfconsistent(l,n,b,epsilon1,epsilon2)
 	  #U=[HV[i,1] for i in 1:(n-1)]
 	  U=norm.normalizing(Utemp,2*l/n)
 	  lold=lnew
-	  lnew=eigvals(H)[1]
+	  lnew=eigvals(H)[k]
 	  s=[abs(U[i]-Uold[i]) for i in 1:(n-1)]
 	 end
 	 end

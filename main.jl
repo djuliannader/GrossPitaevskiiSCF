@@ -22,12 +22,15 @@ open("input.dat") do f
  beta = parse(Float16, K6)
  K7=readline(f)
  K8=readline(f)
+ k = parse(Int64, K8)
  K9=readline(f)
  K10=readline(f)
- ep1 = parse(Float32, K10)
  K11=readline(f)
  K12=readline(f)
- ep2 = parse(Float32, K12)
+ ep1 = parse(Float32, K12)
+ K13=readline(f)
+ K14=readline(f)
+ ep2 = parse(Float32, K14)
 #------------------------------------
 
 # printing information 
@@ -39,7 +42,7 @@ println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
-r=body.selfconsistent(L,N,beta,ep1,ep2)
+r=body.selfconsistent(L,N,beta,k,ep1,ep2)
 end
 
 # printing results
@@ -48,10 +51,10 @@ x=[-L+(2L/N)*i for  i in 1:(N-1)]
 if r[4]==1
  println("lambda = ",r[1])
  iter= trunc(Int,r[2])
- if K8=="True"
+ if K10=="True"
    println("u:",wf)
  end
- println("Convergence reached after ",iter," iterations")
+ println("Convergence for the ",k," state reached after ",iter," iterations")
 end
 if r[4]==2
  iter= trunc(Int,r[2])
