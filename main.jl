@@ -1,6 +1,7 @@
 push!(LOAD_PATH, pwd())
 import body
 import norm
+import energy
 using Plots
 
 
@@ -49,7 +50,9 @@ end
 wf=norm.normalizing(r[3],2L/N)
 x=[-L+(2L/N)*i for  i in 1:(N-1)]
 if r[4]==1
- println("lambda = ",r[1])
+ ener=energy.integratingenergy(wf,L,N)
+ println("chemical potential = ",r[1])
+ println("energy             = ",ener)
  iter= trunc(Int,r[2])
  if K10=="True"
    println("u:",wf)

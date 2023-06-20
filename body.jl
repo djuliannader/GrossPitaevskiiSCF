@@ -34,7 +34,7 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2)
 	  H=(-1/2)*A1+A2+b*A3
 	  Uold=[U[i] for i in 1:(n-1)]
 	  HV=eigvecs(H)
-	  Utemp=[HV[i,1] for i in 1:(n-1)]
+	  Utemp=[HV[i,k] for i in 1:(n-1)]
 	  #println("utemp:",Utemp)
 	  #U=[HV[i,1] for i in 1:(n-1)]
 	  U=norm.normalizing(Utemp,2*l/n)

@@ -3,7 +3,7 @@ Space from -L to L ( L -> float)
 Number N of intervals (h=2L/N -> integer)
 100
 Beta (Non linear coefricient -> float)
-0.0
+1.0
 State of interest (k -> integer)
 2
 Printing wavefunction (True/False)
