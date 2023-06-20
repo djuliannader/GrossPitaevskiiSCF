@@ -50,7 +50,7 @@ end
 wf=norm.normalizing(r[3],2L/N)
 x=[-L+(2L/N)*i for  i in 1:(N-1)]
 if r[4]==1
- ener=energy.integratingenergy(wf,L,N)
+ ener=energy.integratingenergy(wf,beta,L,N)
  println("chemical potential = ",r[1])
  println("energy             = ",ener)
  iter= trunc(Int,r[2])

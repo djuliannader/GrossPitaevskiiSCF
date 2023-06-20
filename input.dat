@@ -1,11 +1,11 @@
 Space from -L to L ( L -> float)
 5
 Number N of intervals (h=2L/N -> integer)
-100
+200
 Beta (Non linear coefricient -> float)
 1.0
 State of interest (k -> integer)
-2
+3
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue (float)
