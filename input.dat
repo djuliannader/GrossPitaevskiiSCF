@@ -1,14 +1,16 @@
 Space from -L to L ( L -> float)
 5
-Number N of intervals (h=2L/N -> integer)
+Number N of intervals (integer)
 200
-Beta (Non linear coefricient -> float)
-1.0
+Beta (float)
+4.0
 State of interest (k -> integer)
-3
+1
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue (float)
 1e-12
 Epsilon for convergence on the wave function (float)
 1e-3
+Maximum number of iterations (integer)
+200

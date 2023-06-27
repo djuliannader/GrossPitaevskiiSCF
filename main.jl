@@ -32,6 +32,9 @@ open("input.dat") do f
  K13=readline(f)
  K14=readline(f)
  ep2 = parse(Float32, K14)
+ K15=readline(f)
+ K16=readline(f)
+ mi = parse(Int64, K16)
 #------------------------------------
 
 # printing information 
@@ -43,7 +46,7 @@ println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
-r=body.selfconsistent(L,N,beta,k,ep1,ep2)
+r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
 end
 
 # printing results

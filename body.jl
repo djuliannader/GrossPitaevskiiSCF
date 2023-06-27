@@ -5,7 +5,7 @@ export selfconsistent
 import potential
 import norm
 
-function selfconsistent(l,n,b,k,epsilon1,epsilon2)
+function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit)
 	 h=2*l/n
 	 d=[-2/(h*h) for i in 1:(n-1)]
 	 du=[1/(h*h) for i in 1:(n-2)]
@@ -25,9 +25,9 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2)
 	 lnew=2
 	 it=0
 	 s=[1 for i in 1:(n-1)]
-	 while (sum(s)>epsilon2) && (it<1000)
+	 while (sum(s)>epsilon2) && (it<maxit)
 	 lold=10
-	 while (abs(lold-lnew)>epsilon1) 
+	 while (abs(lold-lnew)>epsilon1) && (it<maxit)
 	  it=it+1
 	  da3=[U[i]*U[i] for i in 1:(n-1)]
 	  A3=Array(Diagonal(da3))
@@ -43,7 +43,7 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2)
 	  s=[abs(U[i]-Uold[i]) for i in 1:(n-1)]
 	 end
 	 end
-	 if it<999
+	 if it<maxit
 	  return [lnew,it,U,1]
 	 else 
 	  return [lnew,it,U,2]
