@@ -57,11 +57,14 @@ if r[4]==1
  println("chemical potential = ",r[1])
  println("energy             = ",ener)
  iter= trunc(Int,r[2])
+ der=norm.derivative2(wf,2L/N)
+ println("Second derivative at the origin of coordinates: ",der)
  if K10=="True"
    println("u:",wf)
  end
  println("Convergence for the ",k," state reached after ",iter," iterations")
 end
+
 if r[4]==2
  iter= trunc(Int,r[2])
  println("--->Failed to converge wave function after ",iter," iterations")

@@ -7,6 +7,7 @@ import norm
 
 function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit)
 	 h=2*l/n
+	 hbar=10/10
 	 d=[-2/(h*h) for i in 1:(n-1)]
 	 du=[1/(h*h) for i in 1:(n-2)]
 	 A1=Array(Tridiagonal(du, d, du))
@@ -31,7 +32,7 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit)
 	  it=it+1
 	  da3=[U[i]*U[i] for i in 1:(n-1)]
 	  A3=Array(Diagonal(da3))
-	  H=(-1/2)*A1+A2+b*A3
+	  H=(-hbar^2/2)*A1+A2+b*A3
 	  Uold=[U[i] for i in 1:(n-1)]
 	  HV=eigvecs(H)
 	  Utemp=[HV[i,k] for i in 1:(n-1)]
