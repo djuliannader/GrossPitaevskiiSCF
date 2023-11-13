@@ -3,9 +3,9 @@ Space from -L to L ( L -> float)
 Number N of intervals (integer)
 2000
 Beta (float)
-1.0
+0.0
 State of interest (k -> integer)
-1
+5
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue (float)
@@ -14,3 +14,7 @@ Epsilon for convergence on the wave function (float)
 1e-3
 Maximum number of iterations (integer)
 100
+WKB coefficient of transmission (True/False)
+True
+Turning points involved in the tunneling from left to right (List)
+[2,3]

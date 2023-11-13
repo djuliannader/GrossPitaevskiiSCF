@@ -1,7 +1,9 @@
+
 push!(LOAD_PATH, pwd())
 import body
 import norm
 import energy
+import tunneling
 using Plots
 
 
@@ -35,12 +37,20 @@ open("input.dat") do f
  K15=readline(f)
  K16=readline(f)
  mi = parse(Int64, K16)
+ K17=readline(f)
+ K18=readline(f)
+ K19=readline(f)
+ K20=readline(f)
+
+ tt=r"([0-9])" 
+ tpl = [parse(Int64,t.match) for t in eachmatch(tt, K20)]
+ 
 #------------------------------------
 
 # printing information 
 println("------------------------------------------------")
 println("Space from -L to L with L=",L)
-println("partitioning the space in N=",N, " subintervals")
+println("Partitioning the space in N=",N, " subintervals")
 println("Nonlinear term (beta)=",beta)
 println("------------------------------------------------")
 
@@ -50,25 +60,46 @@ r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
 end
 
 # printing results
+# calling function which normalize the wave function
 wf=norm.normalizing(r[3],2L/N)
-x=[-L+(2L/N)*i for  i in 1:(N-1)]
 if r[4]==1
+ println("-----------------------------------------------")
+ # calling function which calculate the energy
  ener=energy.integratingenergy(wf,beta,L,N)
- println("chemical potential = ",r[1])
- println("energy             = ",ener)
+ println("Chemical potential = ",r[1])
+ println("Energy             = ",ener)
  iter= trunc(Int,r[2])
+ # calling function which calculate the derivative of the wave function at the center of coordinates
  der=norm.derivative2(wf,2L/N)
- println("Second derivative at the origin of coordinates: ",der)
- if K10=="True"
-   println("u:",wf)
- end
+ println("Second derivative at the center of coordinates: ",der)
  println("Convergence for the ",k," state reached after ",iter," iterations")
 end
 
+# calling function which calculate the classical turning points
+ tpoints=tunneling.turnningpoints(wf,beta,L,N,r[1])
+ println("Classical turning points: ",tpoints)
+
+# calling function which transmision coefficient
+ if K18=="True"
+   tcoef=tunneling.wkbt(wf,tpoints[tpl[1]],tpoints[tpl[2]],beta,L,N,r[1])
+   println("WKB transmission coeficient: ",tcoef)
+ end
+
+ 
+# printing the wave function
+if K10=="True"
+   println("-------------")
+   println("u:",wf)
+   println("-------------")
+ end
+
+
+# Ploting the wave function
 if r[4]==2
  iter= trunc(Int,r[2])
  println("--->Failed to converge wave function after ",iter," iterations")
 end
+x=[-L+(2L/N)*i for  i in 1:(N-1)]
 plot(x,wf,title="wave function")
  xlabel!("x")
  ylabel!("y(x)")

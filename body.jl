@@ -42,6 +42,7 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit)
 	  lold=lnew
 	  lnew=eigvals(H)[k]
 	  s=[abs(U[i]-Uold[i]) for i in 1:(n-1)]
+	  println("- iteration: ",it," Dev. Eigenvalue: ",abs(lnew-lold), " Dev. Eigenfunction ",sum(s)," -")
 	 end
 	 end
 	 if it<maxit
