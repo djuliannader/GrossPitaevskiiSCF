@@ -3,6 +3,7 @@ push!(LOAD_PATH, pwd())
 import body
 import norm
 import energy
+import wigner
 import tunneling
 using Plots
 
@@ -85,7 +86,10 @@ end
    println("WKB transmission coeficient: ",tcoef)
  end
 
- 
+# calling routine to calculate wigner function
+  wig=wigner.wignerf(wf,L,N)
+
+
 # printing the wave function
 if K10=="True"
    println("-------------")
