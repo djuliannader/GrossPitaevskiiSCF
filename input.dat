@@ -1,9 +1,9 @@
 L For defining space [-L,L] (Float)
 20
 Number N of intervals (Int)
-1000
+500
 Beta (Float)
-0.2
+0.0
 State of interest (Int)
 1
 Printing wavefunction (True/False)

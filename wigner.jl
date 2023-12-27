@@ -31,6 +31,8 @@ function wignerf(psi::Vector{Float64},L,N)
 	   return "Done"
          end
 	 open("wignerfunction.dat","w") do io
+	 sumw=0.0
+	 sumnw=0.0
          for i in imin:imax
 	   xinst=x[i]
 	   for j in imin:imax
@@ -44,9 +46,13 @@ function wignerf(psi::Vector{Float64},L,N)
 	     end
 	     w=sum/(pi)
 	     println(io,xinst," ",pinst," ",round(real(w),digits=16))
+	     sumw=sumw+d*d*w
+	     sumnw=sumnw+d*d*abs(w)
            end
 	 end
 	 println("Go to file wignerfunction.dat to see data for wigner function")
+	 println("Volume of the wigner function:",real(sumw))
+	 println("Vulume of the negative region:",real(sumnw)-1)
 	 end
          return "Done"
 	 end
