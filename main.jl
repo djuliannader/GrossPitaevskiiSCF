@@ -76,6 +76,13 @@ if r[4]==1
  println("Convergence for the ",k," state reached after ",iter," iterations")
 end
 
+# Ploting the wave function
+if r[4]==2
+ println("Chemical potential = ",r[1])
+ iter= trunc(Int,r[2])
+ println("--->Failed to converge wave function after ",iter," iterations")
+end
+
 # calling function which calculate the classical turning points
  tpoints=tunneling.turnningpoints(wf,beta,L,N,r[1])
  println("Classical turning points: ",tpoints)
@@ -98,11 +105,7 @@ if K10=="True"
  end
 
 
-# Ploting the wave function
-if r[4]==2
- iter= trunc(Int,r[2])
- println("--->Failed to converge wave function after ",iter," iterations")
-end
+
 x=[-L+(2L/N)*i for  i in 1:(N-1)]
 plot(x,wf,title="wave function")
  xlabel!("x")
