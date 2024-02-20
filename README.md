@@ -9,7 +9,8 @@ run as:
 
 julia main.jl
 
-or to see the plot of the wave function:
+Cite as:
 
-julia 
-> include("main.jl")
+Nader, D. J., and E. Serrano-Ensástiga. "A numerical study of the Bose-Einstein condensates in a double-well trap using finite differences." arXiv preprint arXiv:2402.05735 (2024).
+
+For change the potential go to file potential.jl
