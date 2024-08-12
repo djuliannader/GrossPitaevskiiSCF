@@ -1,11 +1,11 @@
 L For defining space [-L,L] (Float)
-10
+20
 Number N of intervals (Int)
-500
+1000
 Beta (Float)
-0.0
+2.0
 State of interest (Int)
-1
+11
 Printing wavefunction (True/False)
 False
 Epsilon for convergence on the lowest eigenvalue (Float)
@@ -15,6 +15,6 @@ Epsilon for convergence on the wave function (Float)
 Maximum number of iterations (Int)
 100
 WKB coefficient of transmission (True/False)
-True
+False
 Turning points involved in the tunneling from left to right (List[Int])
 [2,3]

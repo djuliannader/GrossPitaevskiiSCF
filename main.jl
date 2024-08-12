@@ -5,6 +5,7 @@ import norm
 import energy
 import wigner
 import tunneling
+import entropy
 using Plots
 
 
@@ -64,16 +65,18 @@ end
 # calling function which normalize the wave function
 wf=norm.normalizing(r[3],2L/N)
 if r[4]==1
+ iter= trunc(Int,r[2])
  println("-----------------------------------------------")
  # calling function which calculate the energy
  ener=energy.integratingenergy(wf,beta,L,N)
+ println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
+ entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
  println("Energy             = ",ener)
- iter= trunc(Int,r[2])
+ println("Wehrl Entropy      = ",entr)
  # calling function which calculate the derivative of the wave function at the center of coordinates
  der=norm.derivative2(wf,2L/N)
  println("Second derivative at the center of coordinates: ",der)
- println("Convergence for the ",k," state reached after ",iter," iterations")
 end
 
 # Ploting the wave function
