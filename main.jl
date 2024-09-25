@@ -70,10 +70,10 @@ if r[4]==1
  # calling function which calculate the energy
  ener=energy.integratingenergy(wf,beta,L,N)
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
- entr=entropy.wehrlentropy(wf,L,N)
+ #entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
  println("Energy             = ",ener)
- println("Wehrl Entropy      = ",entr)
+ #println("Wehrl Entropy      = ",entr)
  # calling function which calculate the derivative of the wave function at the center of coordinates
  der=norm.derivative2(wf,2L/N)
  println("Second derivative at the center of coordinates: ",der)
@@ -102,10 +102,17 @@ end
 
 # printing the wave function
 if K10=="True"
+   d=2*L/N
+   xx=[-L+i*d for i in 1:(N-1)]
    println("-------------")
-   println("u:",wf)
+   println("Go to file wavefunction.dat to see the wave function")
    println("-------------")
+ open("wavefunction.dat","w") do io
+ for i in 1:length(xx)
+   println(io,xx[i]," ",r[3][i])
  end
+ end
+end
 
 
 
