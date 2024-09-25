@@ -13,4 +13,4 @@ Cite as:
 
 Nader, D. J., and E. Serrano-Ensástiga. "A numerical study of the Bose-Einstein condensates in a double-well trap using finite differences." arXiv preprint arXiv:2402.05735 (2024).
 
-For change the potential go to file potential.jl
+For changing the potential go to file potential.jl
