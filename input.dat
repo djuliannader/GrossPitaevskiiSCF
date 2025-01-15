@@ -1,13 +1,13 @@
 L For defining space [-L,L] (Float)
 20
 Number N of intervals (Int)
-1000
+500
 Beta (Float)
 1.0
 State of interest (Int)
 1
 Printing wavefunction (True/False)
-False
+True
 Epsilon for convergence on the lowest eigenvalue (Float)
 1e-8
 Epsilon for convergence on the wave function (Float)

@@ -3,11 +3,15 @@ Numerical study of the discretization of the Gross-Pitaevskii eigenvalue problem
 
 clone as:
 
+```bash
 git clone https://github.com/djuliannader/GrossPitaevskiiSCF.git
+```
 
 run as:
 
+```bash
 julia main.jl
+```
 
 Cite as:
 
