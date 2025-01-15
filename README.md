@@ -13,14 +13,13 @@ run as:
 julia main.jl
 ```
 
-Cite as:
-
-Nader, D. J., and E. Serrano-Ensástiga. "A numerical study of the Bose-Einstein condensates in a double-well trap using finite differences." arXiv preprint arXiv:2402.05735 (2024).
-
 For manipulating parameters go to file input.file
 
 For changing the potential go to file potential.jl
 
+Cite as:
+
+Nader, D. J., and E. Serrano-Ensástiga. "A numerical study of the Bose-Einstein condensates in a double-well trap using finite differences." arXiv preprint arXiv:2402.05735 (2024).
 
 
 
