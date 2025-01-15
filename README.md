@@ -13,9 +13,9 @@ run as:
 julia main.jl
 ```
 
-For manipulating parameters go to file input.file
+Manipulate parameters from file input.dat
 
-For changing the potential go to file potential.jl
+Change the potential at file potential.jl
 
 Cite as:
 
