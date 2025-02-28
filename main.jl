@@ -70,10 +70,10 @@ if r[4]==1
  # calling function which calculate the energy
  ener=energy.integratingenergy(wf,beta,L,N)
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
- #entr=entropy.wehrlentropy(wf,L,N)
+ entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
  println("Energy             = ",ener)
- #println("Wehrl Entropy      = ",entr)
+ println("Wehrl Entropy      = ",entr)
  # calling function which calculate the derivative of the wave function at the center of coordinates
  der=norm.derivative2(wf,2L/N)
  println("Second derivative at the center of coordinates: ",der)
@@ -92,8 +92,12 @@ end
 
 # calling function which transmision coefficient
  if K18=="True"
-   tcoef=tunneling.wkbt(wf,tpoints[tpl[1]],tpoints[tpl[2]],beta,L,N,r[1])
-   println("WKB transmission coeficient: ",tcoef)
+   if length(tpoints)>2
+    tcoef=tunneling.wkbt(wf,tpoints[tpl[1]],tpoints[tpl[2]],beta,L,N,r[1])
+    println("WKB transmission coeficient: ",tcoef)
+   else
+    println("*Make sure that there is an energy barrier at the energy of the stationary state")
+   end
  end
 
 # calling routine to calculate wigner function
