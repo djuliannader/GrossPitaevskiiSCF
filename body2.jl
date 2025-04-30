@@ -12,7 +12,6 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
    tmax = maxit*dt 
    xvals = [i*h for i in (-n/2+1):(n/2-1)]
    dVop = [potential.V(xvals[i])  for i in 1:length(xvals)]
-   Vop =  Array(Diagonal(dVop))
    psi0 = gaussian(xvals)
    psi = norm.normalizing(psi0,2*l/n)
    psiin = psi
@@ -25,10 +24,8 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
    it=0
    dmu=1.0
    mu=1.0
-   psi1 = psi0
-   psi2 = psi0
+   s=1
    while (abs(dmu)>epsilon1) 
-   #while (it<1000)
      dop1  = [abs2(psiin[i]) for i in 1:length(psiin)]
      psi1  = [exp(-0.5*(dVop[i]+b*dop1[i])*dt)*psiin[i] for i in 1:length(psiin)]
      psik  = fourierdis(psi1)
@@ -42,9 +39,7 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
      dmu   = abs(mu-mu1)/abs(mu)
      psiin = psi
      it=it+1
-     #println("- iteration: ",it," Chem. Potential: ",dmu)
    end
-   #psi = norm.normalizing(psi0,h)
    return [real(mu),it,psi,1]
 end
 
@@ -61,9 +56,8 @@ function fourierdis(list)
   n=length(list)
   fouriert=[0.0+0.0*im for i in 1:n]
   for s in 1:n
-    for r in 1:n
-    fouriert[s] = fouriert[s] + (1/n^(1/2))*list[r]*exp(2*pi*im*(r-1)*(s-1)/n)
-    end
+    sumlist = [(1/n^(1/2))*list[r]*exp(2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
+    fouriert[s] = sum(sumlist) 
   end
   return fouriert
 end
@@ -72,9 +66,8 @@ function invfourierdis(list)
   n=length(list)
   fouriert=[0.0+0.0*im for i in 1:n]
   for s in 1:n
-    for r in 1:n
-    fouriert[s] = fouriert[s] + (1/n^(1/2))*list[r]*exp(-2*pi*im*(r-1)*(s-1)/n)
-    end
+    sumlist = [(1/n^(1/2))*list[r]*exp(-2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
+    fouriert[s] = sum(sumlist)
   end
   return fouriert
 end
