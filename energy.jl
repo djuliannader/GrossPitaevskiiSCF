@@ -3,7 +3,7 @@ export integratingenergy
 export integratingoverlap
 import potential
 
-function integratingenergy(u::Vector{Float64},b,LL,NN)
+function integratingenergy(u,b,LL,NN)
     d=2*LL/NN
     x=[-LL+i*d for i in 1:(NN-1)]
     t1=[(1/2)*((u[i+1]-u[i])/d)^2*d for i in 1:(NN-2)]
@@ -13,7 +13,7 @@ function integratingenergy(u::Vector{Float64},b,LL,NN)
 	 return ener
 	 end
 
-function integratingoverlap(u1::Vector{Float64},u2::Vector{Float64},LL,NN)
+function integratingoverlap(u1,u2,LL,NN)
     d=2*LL/NN
     t2=[u1[i]*u2[i]*d for i in 1:(NN-1)]
     over=sum(t2)

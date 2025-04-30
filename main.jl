@@ -1,6 +1,7 @@
 
 push!(LOAD_PATH, pwd())
 import body
+import body2
 import norm
 import energy
 import wigner
@@ -43,6 +44,9 @@ open("input.dat") do f
  K18=readline(f)
  K19=readline(f)
  K20=readline(f)
+ K21=readline(f)
+ K22=readline(f)
+ flagm = parse(Int64, K22)
 
  tt=r"([0-9])" 
  tpl = [parse(Int64,t.match) for t in eachmatch(tt, K20)]
@@ -58,7 +62,12 @@ println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
-r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
+if flagm==1
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
+end
+if flagm==2
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im)
+end
 end
 
 # printing results
@@ -72,8 +81,8 @@ if r[4]==1
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
  entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
- println("Energy             = ",ener)
- println("Wehrl Entropy      = ",entr)
+ println("Energy             = ",real(ener))
+ println("Wehrl Entropy      = ",real(entr))
  # calling function which calculate the derivative of the wave function at the center of coordinates
  der=norm.derivative2(wf,2L/N)
  println("Second derivative at the center of coordinates: ",der)
@@ -101,7 +110,7 @@ end
  end
 
 # calling routine to calculate wigner function
-  wig=wigner.wignerf(wf,L,N)
+   wig=wigner.wignerf(wf,L,N)
 
 
 # printing the wave function
@@ -113,17 +122,17 @@ if K10=="True"
    println("-------------")
  open("wavefunction.dat","w") do io
  for i in 1:length(xx)
-   println(io,xx[i]," ",r[3][i])
+   println(io,xx[i]," ",real(r[3][i])," ",imag(r[3][i]))
  end
  end
 end
 
 
 
-x=[-L+(2L/N)*i for  i in 1:(N-1)]
-plot(x,wf,title="wave function")
- xlabel!("x")
- ylabel!("y(x)")
+#x=[-L+(2L/N)*i for  i in 1:(N-1)]
+#plot(x,wf,title="wave function")
+# xlabel!("x")
+# ylabel!("y(x)")
 end
 
 

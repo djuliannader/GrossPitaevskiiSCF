@@ -6,7 +6,7 @@ import potential
 
 
 
-function turnningpoints(u::Vector{Float64},b,LL,NN,Ener)
+function turnningpoints(u,b,LL,NN,Ener)
          d=2*LL/NN
          x=[-LL+i*d for i in 1:(NN-1)]
          difaa=abs(potential.V(x[1])+b*u[1]*u[1]-Ener)
@@ -26,7 +26,7 @@ function turnningpoints(u::Vector{Float64},b,LL,NN,Ener)
 
 
 
-function wkbt(u::Vector{Float64},tp1,tp2,b,LL,NN,Ener)
+function wkbt(u,tp1,tp2,b,LL,NN,Ener)
 	d=2*LL/NN
 	ni=trunc(Int,((tp1-(-LL))/d))
 	nf=trunc(Int,((tp2-(-LL))/d))

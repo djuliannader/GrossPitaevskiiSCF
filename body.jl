@@ -17,7 +17,7 @@ function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit)
 	 Utemp=[1/((n-1)^(1/2)) for i in 1:(n-1)]
 	 U=norm.normalizing(Utemp,2*l/n)
 	 #s=[0 for i in 1:(n-1)]
-	 #U=norm.normalizing(Utemp,2l/n)
+	 #U=norm.normalizing(Utemp,2*l/n)
 	 A3=[]
 	 da3=[]
 	 H=[]
