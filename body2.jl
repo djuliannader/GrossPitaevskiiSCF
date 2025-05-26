@@ -4,6 +4,7 @@ using LinearAlgebra
 export splitstep
 import potential
 import norm
+import energy
 
 
 function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
@@ -24,8 +25,9 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
    it=0
    dmu=1.0
    mu=1.0
-   s=1
-   while (abs(dmu)>epsilon1) 
+   #psi2 = psi
+   while (abs(dmu)>epsilon1)
+   #while (it<10000)
      dop1  = [abs2(psiin[i]) for i in 1:length(psiin)]
      psi1  = [exp(-0.5*(dVop[i]+b*dop1[i])*dt)*psiin[i] for i in 1:length(psiin)]
      psik  = fourierdis(psi1)
@@ -40,7 +42,8 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
      psiin = psi
      it=it+1
    end
-   return [real(mu),it,psi,1]
+   cp = energy.integratingchempot(psi,b,l,n)
+   return [real(cp),it,psi,1]
 end
 
 
@@ -71,6 +74,7 @@ function invfourierdis(list)
   end
   return fouriert
 end
+
 
 
 end

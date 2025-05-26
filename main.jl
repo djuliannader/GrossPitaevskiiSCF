@@ -118,9 +118,9 @@ if K10=="True"
    d=2*L/N
    xx=[-L+i*d for i in 1:(N-1)]
    println("-------------")
-   println("Go to file wavefunction.dat to see the wave function")
+   println("Go to file output/wavefunction.dat to see the wave function")
    println("-------------")
- open("wavefunction.dat","w") do io
+ open("output/wavefunction.dat","w") do io
  for i in 1:length(xx)
    println(io,xx[i]," ",real(r[3][i])," ",imag(r[3][i]))
  end

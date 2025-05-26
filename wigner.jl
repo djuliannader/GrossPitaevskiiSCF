@@ -19,7 +19,7 @@ function wignerf(psi,L,N)
 	   println("*Please, consider a larger domain to see the Wigner function*")
 	   return "Done"
          end
-	 open("wignerfunction.dat","w") do io
+	 open("output/wignerfunction.dat","w") do io
 	 sumw=0.0
 	 sumnw=0.0
 	 sumnx=0.0
@@ -41,7 +41,7 @@ function wignerf(psi,L,N)
 	     sumnx=sumnx+d*d*w*(xinst*xinst)
            end
 	 end
-	 println("Go to file wignerfunction.dat to see data for wigner function")
+	 println("Go to file output/wignerfunction.dat to see data for wigner function")
 	 println("Volume of the wigner function: ",real(sumw))
 	 println("Volume of the negative region: ",real(sumnw)-1)
 	 println("Expectation value <x^2> : ",real(sumnx))

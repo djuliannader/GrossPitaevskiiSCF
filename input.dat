@@ -18,5 +18,5 @@ WKB coefficient of transmission (True/False)
 True
 Turning points involved in the tunneling from left to right (List[Int])
 [2,3]
-(1) SCF finite difference method (2) Complet-time Soliton method
-2
+(1) SCF finite difference method (2) Split-time Soliton method
+1
