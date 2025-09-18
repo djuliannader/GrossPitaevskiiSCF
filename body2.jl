@@ -55,26 +55,61 @@ function gaussian(list)
   return gaussianlist
 end
 
+
 function fourierdis(list)
-  n=length(list)
-  fouriert=[0.0+0.0*im for i in 1:n]
-  for s in 1:n
-    sumlist = [(1/n^(1/2))*list[r]*exp(2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
-    fouriert[s] = sum(sumlist) 
-  end
-  return fouriert
+    n = length(list)
+    fouriert = ComplexF64[0+0im for _ in 1:n]
+    c = inv(sqrt(n))
+    @inbounds for s in 0:n-1
+        acc = 0.0 + 0.0im
+        step = cis(2π*s/n)         # e^{i 2π s/n}, faster than exp(im*θ)
+        ω = 1.0 + 0.0im            # current twiddle = step^r
+        @inbounds @simd for r in 1:n
+            acc += list[r] * ω
+            ω *= step
+        end
+        fouriert[s+1] = c * acc
+    end
+    return fouriert
 end
+
+# function fourierdis(list)
+#   n=length(list)
+#   fouriert=[0.0+0.0*im for i in 1:n]
+#   for s in 1:n
+#     sumlist = [(1/n^(1/2))*list[r]*exp(2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
+#     fouriert[s] = sum(sumlist) 
+#   end
+#   return fouriert
+# end
+
+# function invfourierdis(list)
+#   n=length(list)
+#   fouriert=[0.0+0.0*im for i in 1:n]
+#   for s in 1:n
+#     sumlist = [(1/n^(1/2))*list[r]*exp(-2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
+#     fouriert[s] = sum(sumlist)
+#   end
+#   return fouriert
+# end
+
 
 function invfourierdis(list)
-  n=length(list)
-  fouriert=[0.0+0.0*im for i in 1:n]
-  for s in 1:n
-    sumlist = [(1/n^(1/2))*list[r]*exp(-2*pi*im*(r-1)*(s-1)/n) for r in 1:n]
-    fouriert[s] = sum(sumlist)
-  end
-  return fouriert
+    n = length(list)
+    fouriert = ComplexF64[0+0im for _ in 1:n]
+    c = inv(sqrt(n))
+    @inbounds for s in 0:n-1
+        acc = 0.0 + 0.0im
+        step = cis(-2π*s/n)      # e^{-i 2π s / n}
+        ω = 1.0 + 0.0im
+        @inbounds @simd for r in 1:n
+            acc += list[r] * ω
+            ω *= step            # reuse twiddle multiplicatively
+        end
+        fouriert[s+1] = c * acc
+    end
+    return fouriert
 end
-
 
 
 end
