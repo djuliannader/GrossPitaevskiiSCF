@@ -1,4 +1,4 @@
-
+module main
 push!(LOAD_PATH, pwd())
 using Plots
 include("modules/body.jl")
@@ -147,3 +147,4 @@ end
 
 
 
+end
