@@ -26,7 +26,7 @@ To run this repository, please make sure the following environment is available:
 
 ```bash
 julia main.jl
-
+```
 
 Cite as:
 
