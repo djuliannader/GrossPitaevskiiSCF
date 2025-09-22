@@ -10,7 +10,10 @@ git clone https://github.com/djuliannader/GrossPitaevskiiSCF.git
 
 ## Data 
 
-This repository provides data and codes for the paper Critical Energies and Wigner Functions of the Stationary States of the Bose Einstein Condensates in a Double-Well Trap, by D. J. Nader and E. Serrano-Ensastiga. The paper is published in open acces in Adv Quantum Technol. The repository is currently being developed; please await its completion. The repository contains a Mathematica notebook, necessary to recreate the Figures of the article.
+
+This repository provides the data and code associated with the paper Critical Energies and Wigner Functions of the Stationary States of Bose–Einstein Condensates in a Double-Well Trap by D. J. Nader and E. Serrano-Ensástiga, published open access in Advanced Quantum Technologies.
+
+The repository is still under development, so we kindly ask for your patience until its completion. It currently includes a Mathematica notebook that can be used to reproduce the figures from the article.
 
 ## Environment Requirements  
 
