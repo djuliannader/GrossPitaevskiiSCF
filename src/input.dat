@@ -7,7 +7,7 @@ Beta (Float)
 State of interest (Int)
 1
 Printing wavefunction (True/False)
-False
+True
 Epsilon for convergence on the lowest eigenvalue (Float)
 1e-4
 Epsilon for convergence on the wave function (Float)
