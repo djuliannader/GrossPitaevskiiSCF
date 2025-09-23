@@ -1,9 +1,10 @@
 module potential
 push!(LOAD_PATH, pwd())
 export V
+export Vf
 
 function V(x)
-    V = 5*x^2+x^4
+    V = 2*x^2 + x^4
     #sig=1
     #L=10.0
     #V0=1.0
@@ -12,7 +13,7 @@ function V(x)
 end
 
 function Vf(x)
-    V = -5*x^2+x^4
+    V = -5*x^2 + x^4
     #sig=1
     #L=10.0
     #V0=1.0

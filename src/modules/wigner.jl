@@ -5,7 +5,6 @@ include("norm.jl")
 export wignerf
 
 
-
 function wignerf(psi,L,N)
 	 pi=acos(-1)
          imin=trunc(Int64,N/4)
@@ -16,7 +15,7 @@ function wignerf(psi,L,N)
 	 eps=0.001
 	 if (abs(psi[imin])+abs(psi[imax]))>eps
 	   println("*Please, consider a larger domain to see the Wigner function*")
-	   return "Done"
+	   return [2,"Done"]
          end
 	 open("output/wignerfunction.dat","w") do io
 	 sumw=0.0
@@ -30,7 +29,7 @@ function wignerf(psi,L,N)
 	     ie=1
 	     for k in imin:imax
 	        y=x[k]
-	        sum=sum+(exp(2*im*pinst*y))*psi[i-iint+ie]*psi[i+iint-ie+1]*d
+	        sum=sum+(exp(2*im*pinst*y))*conj.(psi[i-iint+ie])*psi[i+iint-ie+1]*d
 		ie=ie+1
 	     end
 	     w=sum/(pi)
@@ -40,12 +39,13 @@ function wignerf(psi,L,N)
 	     sumnx=sumnx+d*d*w*(xinst*xinst)
            end
 	 end
-	 println("Go to file output/wignerfunction.dat to see data for wigner function")
-	 println("Volume of the wigner function: ",real(sumw))
-	 println("Volume of the negative region: ",real(sumnw)-1)
-	 println("Expectation value <x^2> : ",real(sumnx))
+	 println("Go to file output/wignerfunction.dat to see the wigner function")
+	 #println("Volume of the wigner function: ",real(sumw))
+	 #println("Volume of the negative region: ",real(sumnw)-1)
+	 #println("Expectation value <x^2> : ",real(sumnx))
+	 return [1,real(sumw),real(sumnw)-1]
 	 end
-         return "Done"
 	 end
+
 
 end

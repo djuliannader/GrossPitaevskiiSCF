@@ -1,5 +1,5 @@
 L For defining space [-L,L] (Float)
-10
+20
 Number N of intervals (Int)
 300
 Beta (Float)
@@ -18,5 +18,5 @@ WKB coefficient of transmission (True/False)
 False
 Turning points involved in the tunneling from left to right (List[Int])
 [2,3]
-(1) SCF finite difference method (2) Split-time Soliton method
+(1) SCF finite difference method (2) Split-time Soliton method (Int)
 1
