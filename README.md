@@ -35,5 +35,14 @@ Cite as:
 
 D. J. Nader, E. Serrano-Ensástiga, Critical Energies and Wigner Functions of the Stationary States of the Bose Einstein Condensates in a Double-Well Trap. Adv Quantum Technol. 2025, 2400451. https://doi.org/10.1002/qute.202400451
 
+- For the quench dynamics, navigate to the /src manipulate the parameters from the file input_quenchdynamics.dat and execute as:
+
+```bash
+julia main_quenchdynamics.jl
+```
+
+Cite as:
+
+D. J. Nader, Quench Dynamics of the Gross–Pitaevskii Equation in a Quartic Trap: From Criticality to Wigner Negativity, (In progress )
 
 
