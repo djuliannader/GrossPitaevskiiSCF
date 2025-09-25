@@ -11,7 +11,7 @@ using .energy
 
 
 
-function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
+function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp)
    h = (2*l)/n
    dt = 10^(-2)
    tmax = maxit*dt 
@@ -25,7 +25,7 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
    kvals2 = [i*dk for i in (-n/2+1):-1]
    kvals=vcat(kvals1,kvals2) 
    kfac = Array(Diagonal(kvals))
-   expK = exp(-0.5*kfac^2*dt)
+   expK = exp(-(0.5/mp)*kfac^2*dt)
    it=0
    dmu=1.0
    mu=1.0
@@ -33,12 +33,12 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro)
    while (abs(dmu)>epsilon1)
    #while (it<10000)
      dop1  = [abs2(psiin[i]) for i in 1:length(psiin)]
-     psi1  = [exp(-0.5*(dVop[i]+b*dop1[i])*dt)*psiin[i] for i in 1:length(psiin)]
+     psi1  = [exp(-(0.5)*(dVop[i]+b*dop1[i])*dt)*psiin[i] for i in 1:length(psiin)]
      psik  = fourierdis(psi1)
      psik  = [expK[i,i]*psik[i] for i in 1:length(psik)]
      psi2  = invfourierdis(psik)
      dop2  = [abs2(psi2[i]) for i in 1:length(psi2)]
-     psi  = [exp(-0.5*(dVop[i]+b*dop2[i])*dt)*psi2[i] for i in 1:length(psi2)]
+     psi  = [exp(-(0.5)*(dVop[i]+b*dop2[i])*dt)*psi2[i] for i in 1:length(psi2)]
      psi   = norm.normalizing(psi,h)
      mu1   = mu
      mu    = (1/dt)*log(psiin[floor(Int,n/2)]/psi[floor(Int,n/2)])

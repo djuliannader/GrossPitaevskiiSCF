@@ -43,7 +43,7 @@ function wignerf(psi,L,N)
 	 #println("Volume of the wigner function: ",real(sumw))
 	 #println("Volume of the negative region: ",real(sumnw)-1)
 	 #println("Expectation value <x^2> : ",real(sumnx))
-	 return [1,real(sumw),real(sumnw)-1]
+	 return [1,real(sumw),real(sumnw)-real(sumw)]
 	 end
 	 end
 

@@ -75,10 +75,10 @@ println("------------------------------------------------")
 
 # ------------------ Obtaining the initial state ---------------------------    
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im)
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp)
 end
 if r[4]==1
     wf0=norm.normalizing(r[3],2L/N)
@@ -88,7 +88,9 @@ if r[4]==1
 else
     println("----!!!...Failed to obtain initial state!!! try with the other numerical method")
     exit()
-end    
+end
+    eg = energy.integratingenergy(wf0,beta,L,N,mp)
+    println("gs ie: ",eg)
 # -------------------------------------------------------------------------      
 
 # ------------   Obtaining the dynamics and printing results ---------------------------      

@@ -38,25 +38,28 @@ open("input.dat") do f
  k = parse(Int64, K8)
  K9=readline(f)
  K10=readline(f)
+ mp = parse(Float32, K10)   
  K11=readline(f)
  K12=readline(f)
- ep1 = parse(Float32, K12)
  K13=readline(f)
  K14=readline(f)
- ep2 = parse(Float32, K14)
+ ep1 = parse(Float32, K14)
  K15=readline(f)
  K16=readline(f)
- mi = parse(Int64, K16)
+ ep2 = parse(Float32, K16)
  K17=readline(f)
  K18=readline(f)
+ mi = parse(Int64, K18)
  K19=readline(f)
  K20=readline(f)
  K21=readline(f)
  K22=readline(f)
- flagm = parse(Int64, K22)
+ K23=readline(f)
+ K24=readline(f)
+ flagm = parse(Int64, K24)
 
  tt=r"([0-9])" 
- tpl = [parse(Int64,t.match) for t in eachmatch(tt, K20)]
+ tpl = [parse(Int64,t.match) for t in eachmatch(tt, K22)]
  
 #------------------------------------
 
@@ -68,18 +71,19 @@ else
     println("\r Selfconsistent method")
 end
 println("------------------------------------------------")
-println("Space from -L to L with L=",L)
-println("Partitioning the space in N=",N, " subintervals")
-println("Nonlinear term (beta)=",beta)
+println("Space from -L to L with L= ",L)
+println("Partitioning the space in N= ",N, " subintervals")
+println("Nonlinear term (beta)= ",beta)
+println("mass (m)= ",mp)    
 println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi)
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im)
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp)
 end
 end
 
@@ -90,7 +94,7 @@ if r[4]==1
  iter= trunc(Int,r[2])
  println("-----------------------------------------------")
  # calling function which calculate the energy
- ener=energy.integratingenergy(wf,beta,L,N)
+ ener=energy.integratingenergy(wf,beta,L,N,mp)
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
  entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])

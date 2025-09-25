@@ -35,7 +35,7 @@ function dynamics(l, n, b, th, nt, psi0, mphys; ħ=1.0)
 
     open("output/survivalamplitude.dat","w") do io
     for k in 1:Int(nt)
-
+        println("- Time step ",k," of ",Int(nt))
         # Survival amplitude
         suramp = energy.integratingoverlap(psi0,psit,l,n)
         println(io,(k-1)*th," ",real(suramp)," ",imag(suramp))

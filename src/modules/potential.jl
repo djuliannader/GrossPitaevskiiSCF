@@ -4,7 +4,7 @@ export V
 export Vf
 
 function V(x)
-    V = 2*x^2 + x^4
+    V = 2*x^2 + 1.0*x^4
     #sig=1
     #L=10.0
     #V0=1.0

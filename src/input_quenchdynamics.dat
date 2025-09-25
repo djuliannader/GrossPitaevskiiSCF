@@ -1,0 +1,22 @@
+L For defining space [-L,L] (Float)
+28
+Number N of intervals (Int)
+500
+Beta (Float)
+0.5
+Initial state (Int)
+1
+Epsilon for convergence on the lowest eigenvalue (Float)
+1e-4
+Epsilon for convergence on the wave function (Float)
+1e-3
+Maximum number of iterations (Int)
+100
+(1) SCF finite difference method (2) Split-time Soliton method (Int) for obtaining the initial state
+1
+Effective mass (Float)x
+10.0
+Intervals for the time step (Float)
+0.05
+Number of time iterations (Int)
+161
