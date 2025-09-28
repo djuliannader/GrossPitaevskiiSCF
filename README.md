@@ -43,6 +43,6 @@ julia main_quenchdynamics.jl
 
 Cite as:
 
-D. J. Nader, Quench Dynamics of the Gross–Pitaevskii Equation in a Quartic Trap: From Criticality to Wigner Negativity, (In progress )
+D. J. Nader, Quench-Induced Dynamical Transitions in BECs: A Gross–Pitaevskii Approach, (In progress )
 
 
