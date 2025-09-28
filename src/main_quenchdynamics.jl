@@ -56,6 +56,12 @@ open("input_quenchdynamics.dat") do f
  K21=readline(f)
  K22=readline(f)
  nt = parse(Int64, K22)
+ K23=readline(f)
+ K24=readline(f)
+ pot = K24
+ K25=readline(f)
+ K26=readline(f)
+ potf = K26   
 
  
 #------------------------------------
@@ -75,10 +81,10 @@ println("------------------------------------------------")
 
 # ------------------ Obtaining the initial state ---------------------------    
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp)
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,pot)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp)
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,pot)
 end
 if r[4]==1
     wf0=norm.normalizing(r[3],2L/N)
@@ -89,12 +95,12 @@ else
     println("----!!!...Failed to obtain initial state!!! try with the other numerical method")
     exit()
 end
-    eg = energy.integratingenergy(wf0,beta,L,N,mp)
-    println("gs ie: ",eg)
+    eg = energy.integratingenergy(wf0,beta,L,N,mp,pot)
+    println("Initial ground state energy: ",eg)
 # -------------------------------------------------------------------------      
 
 # ------------   Obtaining the dynamics and printing results ---------------------------      
-wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp)
+wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,potf)
 # calling routine to calculate wigner function
 wig=wigner.wignerf(wft,L,N)
 if wig[1]==1 

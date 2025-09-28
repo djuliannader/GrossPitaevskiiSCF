@@ -57,6 +57,9 @@ open("input.dat") do f
  K23=readline(f)
  K24=readline(f)
  flagm = parse(Int64, K24)
+ K25=readline(f)
+ K26=readline(f)
+ pot = K26   
 
  tt=r"([0-9])" 
  tpl = [parse(Int64,t.match) for t in eachmatch(tt, K22)]
@@ -80,12 +83,14 @@ println("------------------------------------------------")
 # calling function which performs selfconsistent method
 @time begin
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp)
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,pot)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp)
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,pot)
 end
 end
+
+    println("here")
 
 # printing results
 # calling function which normalize the wave function
@@ -94,7 +99,7 @@ if r[4]==1
  iter= trunc(Int,r[2])
  println("-----------------------------------------------")
  # calling function which calculate the energy
- ener=energy.integratingenergy(wf,beta,L,N,mp)
+ ener=energy.integratingenergy(wf,beta,L,N,mp,pot)
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
  entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
@@ -112,14 +117,14 @@ if r[4]==2
  println("--->Failed to converge wave function after ",iter," iterations")
 end
 
-# calling function which calculate the classical turning points
- tpoints=tunneling.turnningpoints(wf,beta,L,N,r[1])
+    # calling function which calculate the classical turning points
+ tpoints=tunneling.turnningpoints(wf,beta,L,N,r[1],pot)
  println("Classical turning points: ",tpoints)
-
+ 
 # calling function which transmision coefficient
  if K18=="True"
    if length(tpoints)>2
-    tcoef=tunneling.wkbt(wf,tpoints[tpl[1]],tpoints[tpl[2]],beta,L,N,r[1])
+    tcoef=tunneling.wkbt(wf,tpoints[tpl[1]],tpoints[tpl[2]],beta,L,N,r[1],pot)
     println("WKB transmission coeficient: ",tcoef)
    else
     println("*Make sure that there is an energy barrier at the energy of the stationary state")

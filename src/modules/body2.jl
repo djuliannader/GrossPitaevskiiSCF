@@ -11,12 +11,12 @@ using .energy
 
 
 
-function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp)
+function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp,pot)
    h = (2*l)/n
    dt = 10^(-2)
    tmax = maxit*dt 
    xvals = [i*h for i in (-n/2+1):(n/2-1)]
-   dVop = [potential.V(xvals[i])  for i in 1:length(xvals)]
+   dVop = [potential.V(pot,xvals[i])  for i in 1:length(xvals)]
    psi0 = gaussian(xvals)
    psi = norm.normalizing(psi0,2*l/n)
    psiin = psi
@@ -29,7 +29,7 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp)
    it=0
    dmu=1.0
    mu=1.0
-   #psi2 = psi
+    #psi2 = psi
    while (abs(dmu)>epsilon1)
    #while (it<10000)
      dop1  = [abs2(psiin[i]) for i in 1:length(psiin)]
@@ -46,7 +46,7 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp)
      psiin = psi
      it=it+1
    end
-   cp = energy.integratingchempot(psi,b,l,n)
+   cp = energy.integratingchempot(psi,b,l,n,pot)
    return [real(cp),it,psi,1]
 end
 

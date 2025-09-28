@@ -7,14 +7,14 @@ export wkbt
 
 
 
-function turnningpoints(u,b,LL,NN,Ener)
+function turnningpoints(u,b,LL,NN,Ener,pot)
          d=2*LL/NN
          x=[-LL+i*d for i in 1:(NN-1)]
-         difaa=abs(potential.V(x[1])+b*u[1]*u[1]-Ener)
-	 difa=abs(potential.V(x[2])+b*u[2]*u[2]-Ener)
+         difaa=abs(potential.V(pot,x[1])+b*u[1]*u[1]-Ener)
+	 difa=abs(potential.V(pot,x[2])+b*u[2]*u[2]-Ener)
 	 tplist=Vector{Float64}()
 	 for i in 3:(NN-1)
-	     dif=abs(potential.V(x[i])+b*u[i]*u[i]-Ener)
+	     dif=abs(potential.V(pot,x[i])+b*u[i]*u[i]-Ener)
 	     if (difa<dif) && (difa<difaa)
 	      	tp=x[i-1]
 		append!(tplist,tp)
@@ -27,12 +27,12 @@ function turnningpoints(u,b,LL,NN,Ener)
 
 
 
-function wkbt(u,tp1,tp2,b,LL,NN,Ener)
+function wkbt(u,tp1,tp2,b,LL,NN,Ener,pot)
 	d=2*LL/NN
 	ni=trunc(Int,((tp1-(-LL))/d))
 	nf=trunc(Int,((tp2-(-LL))/d))
 	x=[-LL+i*d for i in 1:(NN-1)]
-	t1=[((2*abs(Ener-(potential.V(x[i])+b*u[i]*u[i])))^(1/2))*d for i in ni:nf]
+	t1=[((2*abs(Ener-(potential.V(pot,x[i])+b*u[i]*u[i])))^(1/2))*d for i in ni:nf]
         suma=sum(t1)
 	T=exp(-2*suma)
         return T

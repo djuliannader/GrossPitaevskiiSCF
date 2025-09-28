@@ -10,7 +10,7 @@ using .energy
 export dynamics        
 
 
-function dynamics(l, n, b, th, nt, psi0, mphys; ħ=1.0)
+function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
     h = 2*l / n
     m = n - 1
 
@@ -22,7 +22,7 @@ function dynamics(l, n, b, th, nt, psi0, mphys; ħ=1.0)
     # Operators: kinetic T and diagonal potential A2
     T  = -(ħ^2/(2*mphys)) * L
     x  = -l .+ (1:m) .* h
-    A2 = Array(Diagonal([potential.Vf(xj) for xj in x]))
+    A2 = Array(Diagonal([potential.V(potf,xj) for xj in x]))
 
     
 
