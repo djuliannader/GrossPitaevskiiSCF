@@ -68,12 +68,13 @@ open("input_quenchdynamics.dat") do f
 
 # printing initial information
 println("\r Gross-Pitaeskii 1D ")
-println("\r Quench dynamics")
+println("\r Quench dynamics")    
 println("------------------------------------------------")
-println("Space from -L to L with L = ",L)
+println("Dynamics from t=0 to t= ",nt*h)
+println("The time is discretized in time steps h= ",h)    
+println("Phase space from -L to L with L = ",L)
 println("Partitioning the space in N = ",N, " subintervals")
 println("Nonlinear term (beta) = ",beta)
-println("Interval for each time step (h) = ",h)    
 println("------------------------------------------------")
 
 # 
@@ -105,7 +106,8 @@ wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,potf)
 wig=wigner.wignerf(wft,L,N)
 if wig[1]==1 
        println("Volume of Wigner function of the state: ",wig[2])
-       println("Negativity volume of the state :",wig[3])
+       println("Negativity volume of the state : ",wig[3])
+       println("Fotoc(t) : ",real(wig[4]))
 end    
 d=2*L/N
 xx=[-L+i*d for i in 1:(N-1)]

@@ -20,7 +20,10 @@ function wignerf(psi,L,N)
 	 open("output/wignerfunction.dat","w") do io
 	 sumw=0.0
 	 sumnw=0.0
-	 sumnx=0.0
+	 sumx2=0.0
+         sumx=0.0
+         sump2=0.0
+         sump=0.0    
          for i in imin:imax
 	   xinst=x[i]
 	   for j in imin:imax
@@ -34,16 +37,18 @@ function wignerf(psi,L,N)
 	     end
 	     w=sum/(pi)
 	     println(io,xinst," ",pinst," ",round(real(w),digits=16))
-	     sumw=sumw+d*d*w
-	     sumnw=sumnw+d*d*abs(w)
-	     sumnx=sumnx+d*d*w*(xinst*xinst)
+	     sumw=sumw+d*d*round(real(w),digits=16)
+	     sumnw=sumnw + d*d*round(abs(real(w)),digits=16)
+	     sumx2=sumx2 + d*d*round(real(w),digits=16)*(xinst*xinst)
+             sumx= sumx  + d*d*round(real(w),digits=16)*(xinst)
+             sump2= sump2 +d*d*round(real(w),digits=16)*(pinst*pinst)
+             sump=sump+d*d*round(real(w),digits=16)*(pinst)
            end
 	 end
 	 println("Go to file output/wignerfunction.dat to see the wigner function")
-	 #println("Volume of the wigner function: ",real(sumw))
-	 #println("Volume of the negative region: ",real(sumnw)-1)
-	 #println("Expectation value <x^2> : ",real(sumnx))
-	 return [1,real(sumw),real(sumnw)-real(sumw)]
+         fotoc = (sump2-sump^2) + (sumx2-sumx^2)
+         neg = real(sumnw) - real(sumw)
+	 return [1,real(sumw),neg,fotoc]
 	 end
 	 end
 
