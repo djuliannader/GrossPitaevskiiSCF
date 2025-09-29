@@ -4,8 +4,10 @@ using LinearAlgebra
 include("potential.jl")
 include("norm.jl")
 include("energy.jl")
+include("wigner.jl")
 using .potential
 using .norm
+using .wigner
 using .energy
 export dynamics        
 
@@ -34,11 +36,16 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
     H = T + A2
 
     open("output/survivalamplitude.dat","w") do io
+    open("output/negativity.dat","w") do io2
+    open("output/fotoc.dat","w") do io3        
     for k in 1:Int(nt)
         println("- Time step ",k," of ",Int(nt))
         # Survival amplitude
         suramp = energy.integratingoverlap(psi0,psit,l,n)
+        wig = wigner.wignerfnp(psit,l,n)
         println(io,(k-1)*th," ",real(suramp)," ",imag(suramp))
+        println(io2,(k-1)*th," ",real(wig[3]))
+        println(io3,(k-1)*th," ",real(wig[4]))
         
         #diag(|psi|^2) at current state
         op1 = Array(Diagonal([abs2(psit[j]) for j in 1:m]))
@@ -62,7 +69,11 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
         #psitt = norm.normalizing(psitt, h)
     end
     end
+    end
+    end
     println("Go to file output/survivalamplitude.dat to see the Survival Amplitude")
+    println("Go to file output/negativity.dat to see the Wigner negativity")
+    println("Go to file output/fotoc.dat to see the Fotoc")
     return psit
 end
 

@@ -133,9 +133,11 @@ end
 
 # calling routine to calculate wigner function
     wig=wigner.wignerf(wf,L,N)
-    if wig[1]==1 
+    if wig[1]==1
+    println("Go to file output/wignerfunction.dat to see the wigner function")
        println("Volume of Wigner function of the state: ",wig[2])
        println("Negativity volume of the state :",wig[3])
+       
     end
 
 # printing the wave function
