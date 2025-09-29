@@ -1,13 +1,13 @@
 L For defining space [-L,L] (Float)
-28
+15
 Number N of intervals (Int)
 500
 Beta (Float)
-1.0
+0.0
 State of interest (Int)
 1
 mass (Float)
-1.0
+5.0
 Printing wavefunction (True/False)
 True
 Epsilon for convergence on the lowest eigenvalue (Float)
@@ -21,7 +21,7 @@ False
 Turning points involved in the tunneling from left to right (List[Int])
 [2,3]
 (1) SCF finite difference method (2) Split-time Soliton method (Int)
-1
+2
 Potential of the trap (String)
-5*x^2+x^4
+x^2/2
 
