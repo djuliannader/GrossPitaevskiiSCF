@@ -43,6 +43,6 @@ julia main_quenchdynamics.jl
 
 Cite as:
 
-D. J. Nader, Quench-Induced Dynamical Transitions in BECs: A Gross–Pitaevskii Approach, (In progress )
+D. J. Nader, Quench-Induced Dynamical Phase Transitions in BECs: A Gross–Pitaevskii Approach, (In progress )
 
 
