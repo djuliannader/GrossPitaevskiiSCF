@@ -1,6 +1,6 @@
 module main
 push!(LOAD_PATH, pwd())
-using Plots
+#using Plots
 include("modules/body.jl")
 include("modules/body2.jl")
 include("modules/norm.jl")

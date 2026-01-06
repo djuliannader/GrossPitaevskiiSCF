@@ -3,7 +3,7 @@ L For defining space [-L,L] (Float)
 Number N of intervals (Int)
 500
 Beta (Float)
-1.0
+2.0
 Initial state (Int)
 1
 Epsilon for convergence on the lowest eigenvalue (Float)
@@ -19,7 +19,7 @@ Effective mass (Float)
 Intervals for the time step (Float)
 0.05
 Number of time iterations (Int)
-10
+161
 Initial potential (String)
 2*x^2+x^4
 Final potential (String)
