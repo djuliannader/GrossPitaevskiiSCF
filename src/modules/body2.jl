@@ -11,7 +11,7 @@ using .energy
 
 
 
-function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp,pot)
+function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp,hbar,pot)
    h = (2*l)/n
    dt = 10^(-2)
    tmax = maxit*dt 
@@ -25,7 +25,7 @@ function splitstep(l,n,b,k,epsilon1,epsilon2,maxit,ro,mp,pot)
    kvals2 = [i*dk for i in (-n/2+1):-1]
    kvals=vcat(kvals1,kvals2) 
    kfac = Array(Diagonal(kvals))
-   expK = exp(-(0.5/mp)*kfac^2*dt)
+   expK = exp(-(0.5/mp)*kfac^2*hbar^2*dt)
    it=0
    dmu=1.0
    mu=1.0

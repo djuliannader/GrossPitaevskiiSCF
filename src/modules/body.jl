@@ -7,13 +7,12 @@ using .potential
 using .norm
 export selfconsistent        
 
-function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit,mp,pot)
+function selfconsistent(l,n,b,k,epsilon1,epsilon2,maxit,mp,hbar,pot)
 	 h=2*l/n
-         hbar=10/10
 	 d=[-2/(h*h) for i in 1:(n-1)]
 	 du=[1/(h*h) for i in 1:(n-2)]
 	 A1=Array(Tridiagonal(du, d, du))
-	 da2=[potential.V(pot,-l+i*h) for i in 1:(n-1)]
+	 da2=[potential.V(pot,(-l+i*h)) for i in 1:(n-1)]
 	 A2=Array(Diagonal(da2))
 	 Utemp=[]
 	 Utemp=[1/((n-1)^(1/2)) for i in 1:(n-1)]

@@ -38,31 +38,34 @@ open("input.dat") do f
  k = parse(Int64, K8)
  K9=readline(f)
  K10=readline(f)
- mp = parse(Float32, K10)   
+ mp = parse(Float32, K10)
  K11=readline(f)
  K12=readline(f)
+ hbar = parse(Float32, K12)   
  K13=readline(f)
  K14=readline(f)
- ep1 = parse(Float32, K14)
  K15=readline(f)
  K16=readline(f)
- ep2 = parse(Float32, K16)
+ ep1 = parse(Float32, K16)
  K17=readline(f)
  K18=readline(f)
- mi = parse(Int64, K18)
+ ep2 = parse(Float32, K18)
  K19=readline(f)
  K20=readline(f)
+ mi = parse(Int64, K20)
  K21=readline(f)
  K22=readline(f)
  K23=readline(f)
  K24=readline(f)
- flagm = parse(Int64, K24)
  K25=readline(f)
  K26=readline(f)
- pot = K26   
+ flagm = parse(Int64, K26)
+ K27=readline(f)
+ K28=readline(f)
+ pot = K28   
 
  tt=r"([0-9])" 
- tpl = [parse(Int64,t.match) for t in eachmatch(tt, K22)]
+ tpl = [parse(Int64,t.match) for t in eachmatch(tt, K24)]
  
 #------------------------------------
 
@@ -77,16 +80,20 @@ println("------------------------------------------------")
 println("Space from -L to L with L= ",L)
 println("Partitioning the space in N= ",N, " subintervals")
 println("Nonlinear term (beta)= ",beta)
-println("mass (m)= ",mp)    
+println("mass (m)= ",mp)
+println("hbar    = ",hbar)    
 println("------------------------------------------------")
 
 # calling function which performs selfconsistent method
 @time begin
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,pot)
+  println("Selfconsistent field method selected")  
+    r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,hbar,pot)
+    #r2=body.selfconsistent(L,N,beta,2,ep1,ep2,mi,mp,hbar,pot)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,pot)
+  println("Split-time soliton method selected")  
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,hbar,pot)
 end
 end
 
@@ -95,11 +102,12 @@ end
 # printing results
 # calling function which normalize the wave function
 wf=norm.normalizing(r[3],2L/N)
+#wf = wf=norm.normalizing((1/2^(1/2))*(r[3]+1.0*r2[3]),2L/N)   
 if r[4]==1
  iter= trunc(Int,r[2])
  println("-----------------------------------------------")
  # calling function which calculate the energy
- ener=energy.integratingenergy(wf,beta,L,N,mp,pot)
+ ener=energy.integratingenergy(wf,beta,L,N,mp,hbar,pot)
  println("*Convergence for the ",k," stationary state reached after ",iter," iterations*")
  entr=entropy.wehrlentropy(wf,L,N)
  println("Chemical potential = ",r[1])
@@ -131,27 +139,29 @@ end
    end
  end
 
+# printing the wave function
+if K14=="True"
+   d=2*L/N
+   xx=[(-L+i*d) for i in 1:(N-1)]
+   println("-------------")
+   println("Go to file output/wavefunction.dat to see the wave function")
+   println("-------------")
+ open("output/wavefunction.dat","w") do io
+ for i in 1:length(xx)
+   println(io,xx[i]," ",real(wf[i])," ",imag(wf[i]))
+ end
+ end
+end
+
 # calling routine to calculate wigner function
-    wig=wigner.wignerf(wf,L,N)
+    wig=wigner.wignerf(wf,L,N,hbar)
     if wig[1]==1
        println("Volume of Wigner function of the state: ",wig[2])
        println("Negativity volume of the state :",wig[3])
        
     end
 
-# printing the wave function
-if K12=="True"
-   d=2*L/N
-   xx=[-L+i*d for i in 1:(N-1)]
-   println("-------------")
-   println("Go to file output/wavefunction.dat to see the wave function")
-   println("-------------")
- open("output/wavefunction.dat","w") do io
- for i in 1:length(xx)
-   println(io,xx[i]," ",real(r[3][i])," ",imag(r[3][i]))
- end
- end
-end
+
 
 
 
