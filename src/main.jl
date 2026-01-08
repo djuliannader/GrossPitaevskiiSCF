@@ -97,7 +97,7 @@ if flagm==2
 end
 end
 
-    println("here")
+    
 
 # printing results
 # calling function which normalize the wave function
