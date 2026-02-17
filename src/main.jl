@@ -89,7 +89,7 @@ println("------------------------------------------------")
 if flagm==1
   println("Selfconsistent field method selected")  
     r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,hbar,pot)
-    #r2=body.selfconsistent(L,N,beta,2,ep1,ep2,mi,mp,hbar,pot)
+    r2=body.selfconsistent(L,N,beta,2,ep1,ep2,mi,mp,hbar,pot)
 end
 if flagm==2
   println("Split-time soliton method selected")  
@@ -157,8 +157,26 @@ end
     wig=wigner.wignerf(wf,L,N,hbar)
     if wig[1]==1
        println("Volume of Wigner function of the state: ",wig[2])
-       println("Negativity volume of the state :",wig[3])
-       
+       println("Negativity volume of the state : ",wig[3])
+       println("Average position <x>=xav : ",wig[5])
+       println("Average momentum <p>=pav : ",wig[6]) 
+       imin=trunc(Int64,N/4)
+       imax=length(wf)-imin
+       xx=[(-L+i*d) for i in imin:imax]
+       open("output/wignerfunctioncuts.dat","w") do io
+       println("Go to file output/wignerfunctioncuts.dat to see cuts of the Wigner function along poition and momentum") 
+       for xp in xx
+           wcut1=wigner.wignerfpoint(wf,L,N,hbar,xp,0)
+           wcut2=wigner.wignerfpoint(wf,L,N,hbar,0,xp)
+           println(io,xp," ",wcut1," ",wcut2)    
+       end
+       end
+       wr = wigner.witnesses(wf,L,N,hbar,wig[5],wig[6])
+       println("Position Kurtosis <(x-xav)^4>/(3<(x-xav)^2>^2) : ",wr[3])
+       println("Momentum Kurtosis <(p-pav)^4>/(3<(p-pav)^2>^2) : ",wr[4])
+       println(" Normalized QFI(X) for displacement in momentum    : ",wr[5])
+       println(" Normalized QFI(P) for displacement in position    : ",wr[6])
+       println(" Normalized QFI(N) for rotation    : ",wr[7])     
     end
 
 

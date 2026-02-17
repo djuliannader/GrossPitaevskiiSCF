@@ -1,6 +1,6 @@
 module main_quenchdynamics
 push!(LOAD_PATH, pwd())
-using Plots
+#using Plots
 include("modules/body.jl")
 include("modules/body2.jl")
 include("modules/norm.jl")
@@ -37,31 +37,36 @@ open("input_quenchdynamics.dat") do f
  k = parse(Int64, K8)
  K9=readline(f)
  K10=readline(f)
- ep1 = parse(Float32, K10)
+ hbar = parse(Float32, K10)
  K11=readline(f)
- K12=readline(f)
- ep2 = parse(Float32, K12)
+ K12=readline(f)   
+ ep1 = parse(Float32, K12)
  K13=readline(f)
  K14=readline(f)
- mi = parse(Int64, K14)
+ ep2 = parse(Float32, K14)
  K15=readline(f)
  K16=readline(f)
- flagm = parse(Int64, K16)
+ mi = parse(Int64, K16)
  K17=readline(f)
  K18=readline(f)
- mp = parse(Float32, K18)  
+ flagm = parse(Int64, K18)
  K19=readline(f)
  K20=readline(f)
- h = parse(Float32, K20)   
+ mp = parse(Float32, K20)  
  K21=readline(f)
  K22=readline(f)
- nt = parse(Int64, K22)
+ h = parse(Float32, K22)   
  K23=readline(f)
  K24=readline(f)
- pot = K24
+ nt = parse(Int64, K24)
  K25=readline(f)
  K26=readline(f)
- potf = K26   
+ pot = K26
+ K27=readline(f)
+ K28=readline(f)
+ potf = K28   
+ K29=readline(f)
+ K30=readline(f)
 
  
 #------------------------------------
@@ -75,6 +80,8 @@ println("The time is discretized in time steps h= ",h)
 println("Phase space from -L to L with L = ",L)
 println("Partitioning the space in N = ",N, " subintervals")
 println("Nonlinear term (beta) = ",beta)
+println("Mass  (m) = ",mp)
+println("hbar (hbar) = ",hbar)    
 println("------------------------------------------------")
 
 # 
@@ -82,10 +89,10 @@ println("------------------------------------------------")
 
 # ------------------ Obtaining the initial state ---------------------------    
 if flagm==1
-  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,pot)
+  r=body.selfconsistent(L,N,beta,k,ep1,ep2,mi,mp,hbar,pot)
 end
 if flagm==2
-  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,pot)
+  r=body2.splitstep(L,N,beta,k,ep1,ep2,mi,-im,mp,hbar,pot)
 end
 if r[4]==1
     wf0=norm.normalizing(r[3],2L/N)
@@ -96,14 +103,14 @@ else
     println("----!!!...Failed to obtain initial state!!! try with the other numerical method")
     exit()
 end
-    eg = energy.integratingenergy(wf0,beta,L,N,mp,pot)
+    eg = energy.integratingenergy(wf0,beta,L,N,mp,hbar,pot)
     println("Initial ground state energy: ",eg)
 # -------------------------------------------------------------------------      
 
 # ------------   Obtaining the dynamics and printing results ---------------------------      
-wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,potf)
+wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,hbar,potf)
 # calling routine to calculate wigner function
-wig=wigner.wignerf(wft,L,N)
+wig=wigner.wignerf(wft,L,N,hbar)
 if wig[1]==1 
        println("Volume of Wigner function of the state: ",wig[2])
        println("Negativity volume of the state : ",wig[3])

@@ -12,7 +12,7 @@ using .energy
 export dynamics        
 
 
-function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
+function dynamics(l, n, b, th, nt, psi0, mphys, hbar, potf)
     h = 2*l / n
     m = n - 1
 
@@ -22,7 +22,7 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
     L  = Array(Tridiagonal(du, d, du))
 
     # Operators: kinetic T and diagonal potential A2
-    T  = -(ħ^2/(2*mphys)) * L
+    T  = -(hbar^2/(2*mphys)) * L
     x  = -l .+ (1:m) .* h
     A2 = Array(Diagonal([potential.V(potf,xj) for xj in x]))
 
@@ -36,22 +36,21 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
     H = T + A2
 
     open("output/survivalamplitude.dat","w") do io
-    open("output/negativity.dat","w") do io2
-    open("output/fotoc.dat","w") do io3        
+    open("output/witnesses.dat","w") do io2
     for k in 1:Int(nt)
         println("- Time step ",k," of ",Int(nt))
         # Survival amplitude
         suramp = energy.integratingoverlap(psi0,psit,l,n)
-        wig = wigner.wignerfnp(psit,l,n)
+        wigs = wigner.wignerfnp(psit,l,n,hbar)
+        wig = wigner.witnesses(psit,l,n,hbar,real(wigs[5]),real(wigs[6]))
         println(io,(k-1)*th," ",real(suramp)," ",imag(suramp))
-        println(io2,(k-1)*th," ",real(wig[3]))
-        println(io3,(k-1)*th," ",real(wig[4]))
+        println(io2,(k-1)*th," ",real(wig[2])," ",real(wig[5])," ",real(wig[6])," ",real(wig[7])," ",real(wig[8]))
         
         #diag(|psi|^2) at current state
         op1 = Array(Diagonal([abs2(psit[j]) for j in 1:m]))
 
         # predictor (Euler-type exponential step)
-        psinp1til = exp((-1im/ħ)*th*(H + b*op1)) * psit
+        psinp1til = exp((-1im/hbar)*th*(H + b*op1)) * psit
         psinp1til = norm.normalizing(psinp1til, h)
 
         # Midpoint estimate
@@ -61,7 +60,7 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
 
         # Corrector (EM step with midpoint Hamiltonian)  
         op2  = Array(Diagonal([abs2(psinp12[j]) for j in 1:m]))
-        psit = exp((-1im/ħ)*th*(H + b*op2)) * psit
+        psit = exp((-1im/hbar)*th*(H + b*op2)) * psit
         psit = norm.normalizing(psit, h)
 
             
@@ -70,10 +69,9 @@ function dynamics(l, n, b, th, nt, psi0, mphys, potf; ħ=1.0)
     end
     end
     end
-    end
     println("Go to file output/survivalamplitude.dat to see the Survival Amplitude")
-    println("Go to file output/negativity.dat to see the Wigner negativity")
-    println("Go to file output/fotoc.dat to see the Fotoc")
+    println("Go to file output/witnesses.dat to see some witnesses of the nonclassical dynamics")
+    println("time | negativity |  QFIX | QFIP | QFIN | FOTOC ")
     return psit
 end
 

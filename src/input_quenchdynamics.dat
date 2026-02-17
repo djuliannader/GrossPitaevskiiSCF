@@ -1,11 +1,13 @@
 L For defining space [-L,L] (Float)
-28
+8
 Number N of intervals (Int)
-500
+600
 Beta (Float)
-2.0
+0.0
 Initial state (Int)
 1
+hbar (Float)
+0.1
 Epsilon for convergence on the lowest eigenvalue (Float)
 1e-4
 Epsilon for convergence on the wave function (Float)
@@ -13,14 +15,14 @@ Epsilon for convergence on the wave function (Float)
 Maximum number of iterations (Int)
 100
 (1) SCF finite difference method (2) Split-time Soliton method (Int) for obtaining the initial state
-2
+1
 Effective mass (Float)
-10.0
+1.0
 Intervals for the time step (Float)
-0.05
+0.025
 Number of time iterations (Int)
-161
+267
 Initial potential (String)
-2*x^2+x^4
+(x)^2/2-(1/2)*(1+2*(0)^2*x^2)^(1/2)
 Final potential (String)
--5*x^2+x^4
+(x)^2/2-(1/2)*(1+(2^(1/2)*(5/4)*x+(0))^2)^(1/2)
