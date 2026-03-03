@@ -21,8 +21,8 @@ Effective mass (Float)
 Intervals for the time step (Float)
 0.025
 Number of time iterations (Int)
-267
+401
 Initial potential (String)
 (x)^2/2-(1/2)*(1+2*(0)^2*x^2)^(1/2)
 Final potential (String)
-(x)^2/2-(1/2)*(1+(2^(1/2)*(5/4)*x+(0))^2)^(1/2)
+(x)^2/2-(1/2)*(1+(2^(1/2)*(1.75)*x+(0.5))^2)^(1/2)

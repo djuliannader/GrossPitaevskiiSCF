@@ -75,9 +75,9 @@ open("input_quenchdynamics.dat") do f
 println("\r Gross-Pitaeskii 1D ")
 println("\r Quench dynamics")    
 println("------------------------------------------------")
-println("Dynamics from t=0 to t= ",nt*h)
+println("Dynamics from t=0 to t= ",(nt-1)*h)
 println("The time is discretized in time steps h= ",h)    
-println("Phase space from -L to L with L = ",L)
+println("Space from -L to L with L = ",L)
 println("Partitioning the space in N = ",N, " subintervals")
 println("Nonlinear term (beta) = ",beta)
 println("Mass  (m) = ",mp)
@@ -107,8 +107,10 @@ end
     println("Initial ground state energy: ",eg)
 # -------------------------------------------------------------------------      
 
-# ------------   Obtaining the dynamics and printing results ---------------------------      
-wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,hbar,potf)
+    # ------------   Obtaining the dynamics and printing results ---------------------------
+#ctsa = quenchdynamics.complextimesp(wf0,L,N,beta,k,ep1,ep2,mi,mp,hbar,potf,10.0,0.5,0.25,50)
+println("Complex-time survival amplitude obtained, data in output/survivalamplitudect.dat")    
+wft = quenchdynamics.dynamics(L,N,beta,h,nt,wf0,mp,hbar,potf,0.0)
 # calling routine to calculate wigner function
 wig=wigner.wignerf(wft,L,N,hbar)
 if wig[1]==1 

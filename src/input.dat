@@ -25,5 +25,5 @@ Turning points involved in the tunneling from left to right (List[Int])
 (1) SCF finite difference method (2) Split-time Soliton method (Int)
 1
 Potential of the trap (String)
-(x)^2/2-(1/2)*(1+2*(2)^2*x^2)^(1/2)
+(x)^2/2-(1/2)*(1+2*(0.98)^2*x^2)^(1/2)
 

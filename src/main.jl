@@ -171,12 +171,14 @@ end
            println(io,xp," ",wcut1," ",wcut2)    
        end
        end
-       wr = wigner.witnesses(wf,L,N,hbar,wig[5],wig[6])
+       wr = wigner.witnesses(wf,L,N,hbar,wig[5],wig[6],0)
        println("Position Kurtosis <(x-xav)^4>/(3<(x-xav)^2>^2) : ",wr[3])
        println("Momentum Kurtosis <(p-pav)^4>/(3<(p-pav)^2>^2) : ",wr[4])
        println(" Normalized QFI(X) for displacement in momentum    : ",wr[5])
        println(" Normalized QFI(P) for displacement in position    : ",wr[6])
-       println(" Normalized QFI(N) for rotation    : ",wr[7])     
+       println(" Normalized QFI(N) for rotation    : ",wr[7])
+       println(" Normalized QFI(P,theta) for rotation    : ",wr[8])  
+       println(" Normalized QFI(P,phi) for rotation    : ",wr[9]) 
     end
 
 

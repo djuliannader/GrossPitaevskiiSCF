@@ -5,14 +5,16 @@ include("potential.jl")
 include("norm.jl")
 include("energy.jl")
 include("wigner.jl")
+include("body.jl")
 using .potential
 using .norm
+using .body
 using .wigner
 using .energy
 export dynamics        
 
 
-function dynamics(l, n, b, th, nt, psi0, mphys, hbar, potf)
+function dynamics(l, n, b, th, nt, psi0, mphys, hbar, potf,theta)
     h = 2*l / n
     m = n - 1
 
@@ -36,15 +38,16 @@ function dynamics(l, n, b, th, nt, psi0, mphys, hbar, potf)
     H = T + A2
 
     open("output/survivalamplitude.dat","w") do io
-    open("output/witnesses.dat","w") do io2
+    open("output/witnesses.dat","w") do io2      
     for k in 1:Int(nt)
         println("- Time step ",k," of ",Int(nt))
         # Survival amplitude
         suramp = energy.integratingoverlap(psi0,psit,l,n)
         wigs = wigner.wignerfnp(psit,l,n,hbar)
-        wig = wigner.witnesses(psit,l,n,hbar,real(wigs[5]),real(wigs[6]))
+        wig = wigner.witnesses(psit,l,n,hbar,real(wigs[5]),real(wigs[6]),theta)
+        nzero = wigner.Nozeroscut(psit,l,n,hbar,pi/2)
         println(io,(k-1)*th," ",real(suramp)," ",imag(suramp))
-        println(io2,(k-1)*th," ",real(wig[2])," ",real(wig[5])," ",real(wig[6])," ",real(wig[7])," ",real(wig[8]))
+        println(io2,(k-1)*th," ",real(wig[1])," ",real(wig[2])," ",real(wig[5])," ",real(wig[6])," ",real(wig[7])," ",real(wig[9])," ",real(wig[10])," ",real(nzero[1])," ",real(wig[11])," ",real(wig[12])," ",real(wig[13])," ",real(wig[14])," ",real(wig[15])," ",real(wig[16])," ",real(wig[17]))
         
         #diag(|psi|^2) at current state
         op1 = Array(Diagonal([abs2(psit[j]) for j in 1:m]))
@@ -71,9 +74,35 @@ function dynamics(l, n, b, th, nt, psi0, mphys, hbar, potf)
     end
     println("Go to file output/survivalamplitude.dat to see the Survival Amplitude")
     println("Go to file output/witnesses.dat to see some witnesses of the nonclassical dynamics")
-    println("time | negativity |  QFIX | QFIP | QFIN | FOTOC ")
+    println("time | negativity  | X kurtosis | P kurtosis |  QFIX | QFIP | QFIN | FOTOC ")
     return psit
 end
 
 
+function complextimesp(wf0,L,N,beta,k,ep1,ep2,mi,mp,hbar,pot,tmax,gmax,tgint,Nlevels)
+    enerlist = []
+    clist = []
+    for k in 1:Nlevels
+        r=body.selfconsistentnp(L,N,beta,k,ep1,ep2,mi,mp,hbar,pot)
+        wfn=norm.normalizing(r[3],2L/N)
+        ev = energy.integratingenergy(wfn,beta,L,N,mp,hbar,pot)
+        append!(enerlist,ev)
+        cints = energy.integratingoverlap(wf0,wfn,L,N)
+        append!(clist,abs2(cints))
+    end
+    open("output/survivalamplitudect.dat","w") do io
+    for t in 0:tgint:tmax
+    #println(t)        
+        for g in -gmax:tgint:gmax
+            zinst = 0.0 + 0.0*im
+            for i in 1:length(enerlist)  
+               zinst = zinst + clist[i]*exp(-im*(t+im*g)*enerlist[i]/hbar)
+            end
+        println(io,t," ",g," ",real(zinst)," ",imag(zinst))
+            end
+    end
+    end
+    return "done"
+end
+    
 end
